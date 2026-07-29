@@ -1,5 +1,10 @@
 # Municipios de Bolivia — 343 unidades (CPV-2024)
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="img/mapa-dark.png">
+  <img src="img/mapa-light.png" alt="Mapa de Bolivia dividido en sus 343 municipios, con los bordes departamentales marcados y los cuatro GAIOC creados desde 2016 resaltados en azul" width="620">
+</picture>
+
 Geografía municipal lista para usar, con los **343 municipios** que reconoce el
 Censo de Población y Vivienda 2024 y los códigos del INE que usan los microdatos
 censales.
@@ -118,3 +123,31 @@ Esta capa es la que trae el paquete de R
 library(censosbo)
 geo_municipios   # sf con los 343
 ```
+
+## Referencias
+
+Las tres fuentes que se cruzan para armar esta capa:
+
+**SDSN Bolivia** — geometría de las 343 unidades, capital y superficie.
+
+> SDSN Bolivia (2025). *Límites Municipales Bolivia 2025* [Archivo shapefile].
+> <https://sdsnbolivia.org/datos-espaciales/>
+
+**INE Bolivia** — códigos `idep`/`iprov`/`imun`, nombres de municipio, provincia y
+departamento, y los puntos de comunidades que resuelven el emparejamiento entre
+código y polígono.
+
+> Instituto Nacional de Estadística de Bolivia (2024). *Censo de Población y
+> Vivienda 2024: microdatos*. <https://cpv2024.ine.gob.bo/index.php/principal/descargas/>
+>
+> Instituto Nacional de Estadística de Bolivia (2024). *Geoportal del CPV-2024:
+> unidades censales por manzano y comunidad*. <https://geoportal.ine.gob.bo/>
+
+**GeoBolivia / Ministerio de Autonomías** — el archivo oficial de 2015 con los 339
+municipios, del que parte la geometría de SDSN. No se usa aquí directamente: llega
+a esta capa a través de la de SDSN, que lo ajustó y le sumó las cuatro unidades
+nuevas.
+
+> Ministerio de Autonomías del Estado Plurinacional de Bolivia (2015). *Límites
+> municipales de Bolivia*. Publicado en GeoBolivia, Infraestructura de Datos
+> Espaciales del Estado Plurinacional de Bolivia.
