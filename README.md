@@ -58,6 +58,96 @@ La clave para unir con datos censales es **`idep + iprov + imun`**. Ojo con los
 ceros a la izquierda: si tu herramienta lee los códigos como número, `"01"` se
 vuelve `1` y el join falla en silencio. Léelos como texto.
 
+## Cómo usarla
+
+No hace falta descargar nada: los cuatro archivos se leen directo desde la URL.
+La base es:
+
+```
+https://raw.githubusercontent.com/alex-roc/municipios-bolivia-2024/main/
+```
+
+### R
+
+```r
+library(sf)
+
+base <- "https://raw.githubusercontent.com/alex-roc/municipios-bolivia-2024/main/"
+
+mun <- st_read(paste0(base, "municipios_bolivia_2024.geojson"))
+# Simple feature collection with 343 features and 8 fields
+
+# Versión de detalle: no declara CRS, hay que asignarlo
+det <- st_read(paste0(base, "municipios_bolivia_2024_detalle.topojson"))
+st_crs(det) <- 4326
+
+# Unir con tus datos por la clave de tres partes
+mun <- merge(mun, mis_datos, by = c("idep", "iprov", "imun"))
+```
+
+Si trabajas con los censos bolivianos, el paquete
+[**censosbo**](https://lab-tecnosocial.github.io/censosbo/) ya trae esta capa en
+`geo_municipios`, sin descarga.
+
+### Python
+
+```python
+import geopandas as gpd, pandas as pd
+
+BASE = "https://raw.githubusercontent.com/alex-roc/municipios-bolivia-2024/main/"
+
+mun = gpd.read_file(BASE + "municipios_bolivia_2024.geojson")
+mun.crs          # EPSG:4326
+len(mun)         # 343
+
+det = gpd.read_file(BASE + "municipios_bolivia_2024_detalle.topojson")
+det = det.set_crs(4326)     # el TopoJSON llega sin CRS
+
+# El CSV SÍ necesita que fuerces texto, o pandas convierte "010101" en 10101
+tabla = pd.read_csv(BASE + "municipios_bolivia_2024.csv",
+                    dtype={"codigo_ine": str, "idep": str, "iprov": str, "imun": str})
+```
+
+En los GeoJSON los códigos ya vienen como texto y se preservan solos; el `dtype`
+solo hace falta para el CSV.
+
+### QGIS
+
+Sin descargar, por protocolo:
+
+1. **Capa → Añadir capa → Añadir capa vectorial** (o `Ctrl+Shift+V`).
+2. En *Tipo de origen* elige **Protocolo: HTTP(S), cloud, etc.**
+3. Pega la URL del archivo en *URI* y pulsa **Añadir**.
+
+También puedes escribir la ruta con el prefijo de GDAL en cualquier diálogo que
+acepte un origen vectorial:
+
+```
+/vsicurl/https://raw.githubusercontent.com/alex-roc/municipios-bolivia-2024/main/municipios_bolivia_2024.geojson
+```
+
+O, más simple todavía: descarga el `.geojson` y arrástralo al lienzo. QGIS lee
+GeoJSON y TopoJSON de forma nativa y toma el CRS del archivo; en el TopoJSON,
+que no lo declara, asígnale EPSG:4326 con clic derecho → *Propiedades → Fuente*.
+
+### ArcGIS
+
+En **ArcGIS Pro**, descarga el `.geojson` y añádelo con *Map → Add Data*; para
+convertirlo a feature class usa la herramienta **JSON To Features**
+(*Conversion Tools*) con el formato de entrada en `GEOJSON`. En **ArcGIS Online**
+puedes añadirlo por URL desde *Add → Add layer from URL* eligiendo el tipo GeoJSON.
+
+El TopoJSON no lo soporta ArcGIS: conviértelo antes a GeoJSON o shapefile, por
+ejemplo con
+
+```bash
+ogr2ogr -f GeoJSON municipios_detalle.geojson municipios_bolivia_2024_detalle.topojson
+```
+
+> Los ejemplos de R, Python y QGIS están probados contra las URL de este repo.
+> Los de ArcGIS no: no tengo forma de ejecutarlos, así que van según la
+> documentación del producto. Si algo no calza, abre un issue.
+
 ## Cómo se construyó
 
 Ninguna fuente pública tiene a la vez la geometría de las 343 unidades y la
