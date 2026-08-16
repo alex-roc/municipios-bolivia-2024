@@ -292,3 +292,15 @@ nuevas.
 > Ministerio de Autonomías del Estado Plurinacional de Bolivia (2015). *Límites
 > municipales de Bolivia*. Publicado en GeoBolivia, Infraestructura de Datos
 > Espaciales del Estado Plurinacional de Bolivia.
+
+## Licencia
+
+[Creative Commons Atribución 4.0 Internacional (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/deed.es).
+Úsalo para lo que quieras, incluso comercialmente; solo cita la fuente.
+
+> Lab TecnoSocial (2026). *Municipios de Bolivia 2024: geografía municipal del
+> CPV-2024*. <https://alex-roc.github.io/municipios-bolivia-2024/>
+
+La licencia cubre esta capa y su documentación. Los datos de origen tienen sus
+propias condiciones: revisa las fuentes citadas arriba si vas a redistribuirlos
+por separado.
