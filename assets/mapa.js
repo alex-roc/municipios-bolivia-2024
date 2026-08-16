@@ -22,18 +22,14 @@
             "#d3ece9", "#f9e9c4", "#dfe3ef", "#e9dfd2"],
       borde: "#ffffff",
       bordeDep: "#8b8f96",
-      resalte: "#0f9d58",
       seleccion: "#0b7d45",
-      aioc: "#1a73c8",
     },
     oscuro: {
       dep: ["#2b3a4a", "#2c4038", "#443a2a", "#3a3348", "#452f2f",
             "#28403f", "#463f27", "#333846", "#3d3830"],
       borde: "#14171a",
       bordeDep: "#767d86",
-      resalte: "#34c77b",
       seleccion: "#4ad98d",
-      aioc: "#4a9eff",
     },
   };
 
