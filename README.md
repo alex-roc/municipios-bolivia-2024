@@ -2,14 +2,14 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="img/mapa-dark.png">
-  <img src="img/mapa-light.png" alt="Mapa de Bolivia dividido en sus 343 municipios, con los bordes departamentales marcados y las cuatro unidades territoriales creadas desde 2016 resaltadas en azul" width="620">
+  <img src="img/mapa-light.png" alt="Mapa de Bolivia dividido en sus 343 unidades del nivel municipal, con los bordes departamentales marcados" width="620">
 </picture>
 
 Geografía municipal lista para usar, con los **343 municipios** que reconoce el
 Censo de Población y Vivienda 2024 y los códigos del INE que usan los microdatos
 censales.
 
-**→ [Sitio con mapa interactivo y descargas](https://alex-roc.github.io/municipios-bolivia-2024/)**
+**→ [Sitio con mapa interactivo y descargas](https://lab-tecnosocial.github.io/municipios-bolivia-2024/)**
 
 > **Uso referencial.** Estos polígonos sirven para mapear y agregar datos, no para
 > dirimir cuestiones de jurisdicción. Bolivia tiene procesos de delimitación
@@ -108,11 +108,11 @@ vuelve `1` y el join falla en silencio. Léelos como texto.
 
 ## Cómo usarla
 
-No hace falta descargar nada: los cuatro archivos se leen directo desde la URL.
+No hace falta descargar nada: todos los archivos se leen directo desde la URL.
 La base es:
 
 ```
-https://raw.githubusercontent.com/alex-roc/municipios-bolivia-2024/main/
+https://lab-tecnosocial.github.io/municipios-bolivia-2024/
 ```
 
 ### R
@@ -120,7 +120,7 @@ https://raw.githubusercontent.com/alex-roc/municipios-bolivia-2024/main/
 ```r
 library(sf)
 
-base <- "https://raw.githubusercontent.com/alex-roc/municipios-bolivia-2024/main/"
+base <- "https://lab-tecnosocial.github.io/municipios-bolivia-2024/"
 
 mun <- st_read(paste0(base, "municipios_bolivia_2024.geojson"))
 # Simple feature collection with 343 features and 8 fields
@@ -142,7 +142,7 @@ Si trabajas con los censos bolivianos, el paquete
 ```python
 import geopandas as gpd, pandas as pd
 
-BASE = "https://raw.githubusercontent.com/alex-roc/municipios-bolivia-2024/main/"
+BASE = "https://lab-tecnosocial.github.io/municipios-bolivia-2024/"
 
 mun = gpd.read_file(BASE + "municipios_bolivia_2024.geojson")
 mun.crs          # EPSG:4326
@@ -171,7 +171,7 @@ También puedes escribir la ruta con el prefijo de GDAL en cualquier diálogo qu
 acepte un origen vectorial:
 
 ```
-/vsicurl/https://raw.githubusercontent.com/alex-roc/municipios-bolivia-2024/main/municipios_bolivia_2024.geojson
+/vsicurl/https://lab-tecnosocial.github.io/municipios-bolivia-2024/municipios_bolivia_2024.geojson
 ```
 
 O, más simple todavía: descarga el `.geojson` y arrástralo al lienzo. QGIS lee
@@ -299,8 +299,14 @@ nuevas.
 Úsalo para lo que quieras, incluso comercialmente; solo cita la fuente.
 
 > Lab TecnoSocial (2026). *Municipios de Bolivia 2024: geografía municipal del
-> CPV-2024*. <https://alex-roc.github.io/municipios-bolivia-2024/>
+> CPV-2024*. <https://lab-tecnosocial.github.io/municipios-bolivia-2024/>
 
 La licencia cubre esta capa y su documentación. Los datos de origen tienen sus
 propias condiciones: revisa las fuentes citadas arriba si vas a redistribuirlos
 por separado.
+
+---
+
+> Este repositorio vivía antes en `alex-roc/municipios-bolivia-2024`. GitHub
+> redirige las URL antiguas, así que los enlaces y `git clone` que ya tengas
+> siguen funcionando, pero conviene apuntar a la dirección nueva.

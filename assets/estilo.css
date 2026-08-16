@@ -197,7 +197,6 @@ code:not(pre code) {
   width: 12px; height: 12px; border-radius: 3px; display: block;
   flex: none; margin-top: 3px;
 }
-.muestra-aioc { background: transparent; border: 1.5px solid var(--azul); }
 .muestra-dep {
   background: linear-gradient(135deg, #cfe3f5 0 50%, #f6e5c8 50% 100%);
 }

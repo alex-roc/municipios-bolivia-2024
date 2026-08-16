@@ -21,16 +21,18 @@ from PIL import Image
 RAIZ = Path(__file__).resolve().parent.parent
 IMG = RAIZ / "img"
 
-# Las cuatro unidades territoriales creadas entre 2016 y 2023.
+# Las cuatro unidades territoriales creadas entre 2016 y 2023. Se comprueban al
+# generar (deben existir en la capa), pero no se resaltan: todas las unidades del
+# nivel municipal tienen el mismo rango y se dibujan igual.
 NUEVAS = {"031304", "050405", "051204", "080901"}
 
-PIE = "343 municipios del CPV-2024  ·  en azul, las cuatro unidades creadas desde 2016"
+PIE = "Las 343 unidades del nivel municipal — Censo de Población y Vivienda 2024"
 
 TEMAS = {
     "light": dict(fondo="#f7f6f2", relleno="#d6d3cd", borde_mun="#ffffff",
-                  borde_dep="#5a5a5a", nuevo="#1a73c8", texto="#4a4a46"),
+                  borde_dep="#5a5a5a", texto="#4a4a46"),
     "dark":  dict(fondo="#14171a", relleno="#2b3138", borde_mun="#14171a",
-                  borde_dep="#8b949e", nuevo="#4a9eff", texto="#8b949e"),
+                  borde_dep="#8b949e", texto="#8b949e"),
 }
 
 
@@ -48,8 +50,6 @@ def dibujar(mun, dep, tema, ruta, con_pie=True, ancho=9.0):
     ax.set_facecolor(t["fondo"])
 
     mun.plot(ax=ax, color=t["relleno"], edgecolor=t["borde_mun"], linewidth=0.45)
-    nuevas = mun[mun.codigo_ine.isin(NUEVAS)]
-    nuevas.plot(ax=ax, color=t["nuevo"], edgecolor=t["borde_mun"], linewidth=0.45)
     dep.boundary.plot(ax=ax, color=t["borde_dep"], linewidth=1.15)
 
     ax.set_axis_off()
@@ -71,8 +71,6 @@ def social(mun, dep):
     ax = fig.add_axes([0.60, 0.02, 0.38, 0.96])
     ax.set_facecolor(t["fondo"])
     mun.plot(ax=ax, color=t["relleno"], edgecolor="#ffffff", linewidth=0.35)
-    mun[mun.codigo_ine.isin(NUEVAS)].plot(ax=ax, color=t["nuevo"],
-                                          edgecolor="#ffffff", linewidth=0.35)
     dep.boundary.plot(ax=ax, color=t["borde_dep"], linewidth=0.9)
     ax.set_axis_off()
 

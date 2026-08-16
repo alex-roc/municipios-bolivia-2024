@@ -73,9 +73,12 @@
       return { color: c.seleccion, weight: 2.2, fillColor: c.dep[i], fillOpacity: 0.95,
                renderer: lienzo };
     }
+    // Todas las unidades se dibujan igual: las AIOC tienen el mismo rango que un
+    // municipio, así que distinguirlas en el mapa sugeriría una jerarquía que no
+    // existe. La condición de AIOC se indica en la ficha, no en el trazo.
     return {
-      color: CODIGOS_AIOC[cod] ? c.aioc : c.borde,
-      weight: CODIGOS_AIOC[cod] ? 1.1 : 0.5,
+      color: c.borde,
+      weight: 0.5,
       fillColor: c.dep[i],
       fillOpacity: 0.9,
       renderer: lienzo,
