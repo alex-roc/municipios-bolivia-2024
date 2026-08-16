@@ -308,5 +308,7 @@ por separado.
 ---
 
 > Este repositorio vivía antes en `alex-roc/municipios-bolivia-2024`. GitHub
-> redirige las URL antiguas, así que los enlaces y `git clone` que ya tengas
-> siguen funcionando, pero conviene apuntar a la dirección nueva.
+> redirige el repositorio y las URL `raw.githubusercontent.com`, así que un
+> `git clone` o un script que apunte ahí sigue funcionando. Lo que **no**
+> redirige es la dirección antigua del sitio, `alex-roc.github.io/municipios-bolivia-2024`:
+> esa da 404 y hay que cambiarla por la nueva.
