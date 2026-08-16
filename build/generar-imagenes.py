@@ -26,7 +26,8 @@ IMG = RAIZ / "img"
 # nivel municipal tienen el mismo rango y se dibujan igual.
 NUEVAS = {"031304", "050405", "051204", "080901"}
 
-PIE = "Las 343 unidades del nivel municipal — Censo de Población y Vivienda 2024"
+PIE = ("Las 343 unidades territoriales del nivel municipal — "
+       "340 municipios y 3 TIOC — Censo 2024")
 
 TEMAS = {
     "light": dict(fondo="#f7f6f2", relleno="#d6d3cd", borde_mun="#ffffff",
@@ -74,11 +75,11 @@ def social(mun, dep):
     dep.boundary.plot(ax=ax, color=t["borde_dep"], linewidth=0.9)
     ax.set_axis_off()
 
-    fig.text(0.06, 0.70, "343 municipios\nde Bolivia", fontsize=44,
+    fig.text(0.06, 0.72, "343 unidades\ndel nivel municipal", fontsize=38,
              fontweight="bold", color="#22252a", linespacing=1.15, va="top")
-    fig.text(0.06, 0.40, "Geografía municipal del Censo 2024\n"
+    fig.text(0.06, 0.42, "Bolivia · 340 municipios y 3 TIOC · Censo 2024\n"
                          "GeoJSON · TopoJSON · Shapefile\nGeoPackage · CSV",
-             fontsize=16, color="#5c6068", linespacing=1.5, va="top")
+             fontsize=15, color="#5c6068", linespacing=1.5, va="top")
     fig.text(0.06, 0.11, "Lab TecnoSocial", fontsize=15,
              color="#0f9d58", fontweight="bold", va="bottom")
 

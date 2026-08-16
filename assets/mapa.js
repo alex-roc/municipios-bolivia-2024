@@ -1,4 +1,4 @@
-/* Visor de los 343 municipios. Leaflet sin teselas: la capa es el mapa.
+/* Visor de las 343 unidades del nivel municipal. Leaflet sin teselas: la capa es el mapa.
    Los colores viven aquí y no en el CSS a propósito — Leaflet escribe atributos
    SVG (stroke, fill) y var() no se resuelve dentro de un atributo. */
 
@@ -94,11 +94,17 @@
     }
     var cod = p.idep + p.iprov + p.imun;
     var aioc = CODIGOS_AIOC[cod];
+    // Unidad territorial (la geometría) y entidad que la gobierna (la ETA) son
+    // cosas distintas en la Ley 031: la conversión a AIOC no crea una unidad nueva,
+    // así que cinco de las ocho AIOC siguen siendo municipios.
+    var esTioc = p.nombre_mun.indexOf("TIOC-") === 0;
     elFicha.innerHTML =
       "<h3>" + p.nombre_mun + "</h3>" +
       '<p class="dep">' + p.nombre_dep + " · prov. " + p.nombre_prov + "</p>" +
       "<dl>" +
       "<dt>Código INE</dt><dd class=\"mono\">" + cod + "</dd>" +
+      "<dt>Unidad territorial</dt><dd>" + (esTioc ? "TIOC" : "Municipio") + "</dd>" +
+      "<dt>Gobierno</dt><dd>" + (aioc ? "AIOC" : "Autonomía municipal") + "</dd>" +
       "<dt>Capital</dt><dd>" + (p.capital || "—") + "</dd>" +
       "<dt>Superficie</dt><dd>" + nf.format(p.superficie_km2) + " km²</dd>" +
       "</dl>" +
@@ -158,7 +164,12 @@
       .join("");
 
     pintarFicha(null);
-    document.getElementById("cuenta-mapa").textContent = rasgos.length + " municipios";
+    var nTioc = rasgos.filter(function (f) {
+      return f.properties.nombre_mun.indexOf("TIOC-") === 0;
+    }).length;
+    document.getElementById("cuenta-mapa").textContent =
+      rasgos.length + " unidades: " + (rasgos.length - nTioc) + " municipios y " +
+      nTioc + " TIOC";
   }
 
   var normaliza = function (s) {

@@ -257,6 +257,8 @@ pre {
 pre code { color: var(--texto); }
 .panel[hidden] { display: none; }
 
+.fuente { color: var(--texto-debil); font-size: 0.85em; font-style: italic; }
+
 .aviso {
   border-left: 3px solid var(--acento); background: var(--acento-suave);
   padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 22px 0;
