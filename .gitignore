@@ -1,0 +1,3 @@
+# Salidas temporales del generador de descargas
+build/.tmp/
+.DS_Store

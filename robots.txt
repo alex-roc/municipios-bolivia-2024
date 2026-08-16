@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://alex-roc.github.io/municipios-bolivia-2024/sitemap.xml

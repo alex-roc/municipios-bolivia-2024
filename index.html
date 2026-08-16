@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+
+<title>343 municipios de Bolivia (CPV 2024) — GeoJSON, Shapefile y TopoJSON</title>
+<meta name="description" content="Geografía municipal de Bolivia lista para usar: los 343 municipios del Censo 2024 con los códigos del INE, en GeoJSON, TopoJSON, Shapefile, GeoPackage y CSV. Descarga libre.">
+<link rel="canonical" href="https://alex-roc.github.io/municipios-bolivia-2024/">
+<meta name="author" content="Lab TecnoSocial">
+<meta name="keywords" content="municipios de Bolivia, shapefile Bolivia, geojson Bolivia, límites municipales, CPV 2024, censo Bolivia, códigos INE, datos abiertos Bolivia, SIG">
+<meta name="robots" content="index, follow, max-image-preview:large">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_BO">
+<meta property="og:site_name" content="Municipios de Bolivia 2024">
+<meta property="og:title" content="343 municipios de Bolivia (CPV 2024)">
+<meta property="og:description" content="Geografía municipal lista para usar, con los códigos del INE que usan los microdatos censales. GeoJSON, TopoJSON, Shapefile, GeoPackage y CSV.">
+<meta property="og:url" content="https://alex-roc.github.io/municipios-bolivia-2024/">
+<meta property="og:image" content="https://alex-roc.github.io/municipios-bolivia-2024/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mapa de Bolivia dividido en sus 343 municipios">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="343 municipios de Bolivia (CPV 2024)">
+<meta name="twitter:description" content="Geografía municipal lista para usar, con los códigos del INE. GeoJSON, TopoJSON, Shapefile, GeoPackage y CSV.">
+<meta name="twitter:image" content="https://alex-roc.github.io/municipios-bolivia-2024/img/og.png">
+
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="municipios_bolivia_2024.geojson" as="fetch" crossorigin>
+<link rel="stylesheet" href="assets/vendor/leaflet.css">
+<link rel="stylesheet" href="assets/estilo.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "Municipios de Bolivia 2024 (CPV-2024)",
+  "alternateName": "Límites municipales de Bolivia, Censo de Población y Vivienda 2024",
+  "description": "Geografía de las 343 unidades territoriales del nivel municipal de Bolivia que reconoce el Censo de Población y Vivienda 2024 (335 municipios y 8 autonomías indígena originario campesinas), con los códigos del INE que usan los microdatos censales. Disponible en GeoJSON, TopoJSON, Shapefile, GeoPackage y CSV.",
+  "url": "https://alex-roc.github.io/municipios-bolivia-2024/",
+  "sameAs": "https://github.com/alex-roc/municipios-bolivia-2024",
+  "keywords": ["Bolivia", "municipios", "límites administrativos", "censo 2024", "INE Bolivia", "SIG", "datos abiertos"],
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "isAccessibleForFree": true,
+  "inLanguage": "es",
+  "spatialCoverage": {
+    "@type": "Place",
+    "name": "Bolivia",
+    "geo": {
+      "@type": "GeoShape",
+      "box": "-22.906568 -69.644231 -9.674426 -57.454434"
+    }
+  },
+  "temporalCoverage": "2024",
+  "creator": {
+    "@type": "Organization",
+    "name": "Lab TecnoSocial",
+    "url": "https://labtecnosocial.org"
+  },
+  "distribution": [
+    { "@type": "DataDownload", "encodingFormat": "application/geo+json", "name": "GeoJSON (uso general)", "contentUrl": "https://alex-roc.github.io/municipios-bolivia-2024/municipios_bolivia_2024.geojson" },
+    { "@type": "DataDownload", "encodingFormat": "application/json", "name": "TopoJSON (alto detalle)", "contentUrl": "https://alex-roc.github.io/municipios-bolivia-2024/municipios_bolivia_2024_detalle.topojson" },
+    { "@type": "DataDownload", "encodingFormat": "application/zip", "name": "Shapefile", "contentUrl": "https://alex-roc.github.io/municipios-bolivia-2024/municipios_bolivia_2024_shp.zip" },
+    { "@type": "DataDownload", "encodingFormat": "application/geopackage+sqlite3", "name": "GeoPackage", "contentUrl": "https://alex-roc.github.io/municipios-bolivia-2024/municipios_bolivia_2024.gpkg" },
+    { "@type": "DataDownload", "encodingFormat": "text/csv", "name": "CSV (sin geometría)", "contentUrl": "https://alex-roc.github.io/municipios-bolivia-2024/municipios_bolivia_2024.csv" }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="envoltura">
+    <a class="marca" href="https://labtecnosocial.org" target="_blank" rel="noopener">
+      <img class="logo-claro"  src="assets/logo-lab-claro.svg"  alt="Lab TecnoSocial" width="120" height="26">
+      <img class="logo-oscuro" src="assets/logo-lab-oscuro.svg" alt="Lab TecnoSocial" width="120" height="26">
+    </a>
+    <nav class="nav">
+      <a href="#mapa-seccion">Mapa</a>
+      <a href="#descargas">Descargas</a>
+      <a href="#uso" class="opcional">Cómo usarla</a>
+      <a href="#origen" class="opcional">Fuentes</a>
+      <a href="https://github.com/alex-roc/municipios-bolivia-2024" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="portada">
+  <div class="envoltura">
+    <span class="etiqueta">Censo de Población y Vivienda 2024</span>
+    <h1>Los 343 municipios<br>de Bolivia</h1>
+    <p class="plomo">
+      Geografía municipal lista para usar, con los códigos del INE que llevan los
+      microdatos censales. Sin registro, sin trámite: descarga el formato que
+      necesites o léelo directo desde la URL.
+    </p>
+
+    <div class="acciones">
+      <a class="boton boton-fuerte" href="municipios_bolivia_2024.geojson" download>
+        Descargar GeoJSON <span class="peso">1,6 MB</span>
+      </a>
+      <a class="boton boton-suave" href="municipios_bolivia_2024_shp.zip" download>
+        Shapefile <span class="peso">548 KB</span>
+      </a>
+      <a class="boton boton-suave" href="#descargas">Todos los formatos</a>
+    </div>
+
+    <div class="cifras">
+      <div class="cifra"><b>343</b><span>unidades territoriales</span></div>
+      <div class="cifra"><b>335</b><span>autonomías municipales</span></div>
+      <div class="cifra"><b>8</b><span>autonomías indígenas</span></div>
+      <div class="cifra"><b>11.365.333</b><span>habitantes, CPV-2024</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion" id="mapa-seccion" style="border-top:none">
+  <div class="envoltura">
+    <h2>Explora la capa</h2>
+    <p>
+      Es la misma geometría que vas a descargar. Haz clic en un municipio para ver
+      su código INE, su capital y su superficie, o búscalo por nombre.
+    </p>
+
+    <div class="marco-mapa">
+      <div id="mapa"></div>
+
+      <aside class="panel">
+        <div class="buscador">
+          <label class="visualmente-oculto" for="busca">Buscar municipio</label>
+          <input id="busca" type="search" list="municipios-lista"
+                 placeholder="Buscar municipio…" autocomplete="off">
+          <datalist id="municipios-lista"></datalist>
+        </div>
+
+        <div class="ficha" id="ficha">
+          <p class="pista">Cargando la capa…</p>
+        </div>
+
+        <div class="claves">
+          <p class="clave"><i class="muestra-aioc"></i> borde azul: autonomía indígena originario campesina</p>
+          <p class="clave"><i class="muestra-dep"></i> color de relleno por departamento</p>
+          <p id="cuenta-mapa">Cargando…</p>
+          <p>WGS84 · EPSG:4326</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="seccion" id="que-son">
+  <div class="envoltura">
+    <h2>343 unidades = 335 municipios + 8 autonomías indígenas</h2>
+    <p>
+      Vas a encontrar fuentes serias que dicen que Bolivia tiene <strong>335</strong>
+      municipios y no 343. Las dos cifras son correctas: cuentan lo mismo de distinta
+      manera. <strong>335</strong> son las autonomías municipales, contadas por su tipo
+      de gobierno; <strong>8</strong> son autonomías indígena originario campesinas
+      (AIOC), con el mismo rango que un municipio pero regidas por sus propias normas.
+      El INE cuenta las <strong>343</strong> juntas como unidades territoriales, y así
+      están en esta capa.
+    </p>
+
+    <div class="tabla-envoltura">
+      <table>
+        <caption class="visualmente-oculto">Las ocho autonomías indígena originario campesinas</caption>
+        <thead>
+          <tr><th>Unidad</th><th>Código INE</th><th>Departamento</th><th>Vía de acceso</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Charagua (Autonomía Guaraní Charagua Iyambae)</td><td class="mono">070702</td><td>Santa Cruz</td><td>conversión de municipio</td></tr>
+          <tr><td>Gutiérrez (Autonomía Indígena Kereimba Iyaambae)</td><td class="mono">070705</td><td>Santa Cruz</td><td>conversión de municipio</td></tr>
+          <tr><td>Huacaya (Autonomía Guaraní Chaqueño de Huacaya)</td><td class="mono">011002</td><td>Chuquisaca</td><td>conversión de municipio</td></tr>
+          <tr><td>Salinas de Garci Mendoza (AIOC de Salinas)</td><td class="mono">040801</td><td>Oruro</td><td>conversión de municipio</td></tr>
+          <tr><td>Uru Chipaya (Nación Originaria Uru Chipaya)</td><td class="mono">040903</td><td>Oruro</td><td>conversión de municipio</td></tr>
+          <tr><td>TIOC-Raqaypampa</td><td class="mono">031304</td><td>Cochabamba</td><td>vía territorio</td></tr>
+          <tr><td>TIOC-Jatun Ayllu Yura</td><td class="mono">051204</td><td>Potosí</td><td>vía territorio</td></tr>
+          <tr><td>TIOC-Territorio Indígena Multiétnico</td><td class="mono">080901</td><td>Beni</td><td>vía territorio</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="aviso">
+      <p>
+        <strong>Las cuatro unidades que suelen faltar.</strong> Casi toda la cartografía
+        municipal boliviana que circula tiene 339 polígonos. Los que faltan no dejan un
+        hueco visible: su territorio aparece dentro de la unidad madre, así que los datos
+        salen mal atribuidos sin que se note. Son TIOC-Raqaypampa (dentro de Mizque),
+        San&nbsp;Pedro de Macha (Colquechaca), TIOC-Jatun Ayllu Yura (Tomave) y
+        TIOC-Territorio Indígena Multiétnico (San Ignacio y Santa Ana): 7.599 km² en total.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="seccion" id="descargas">
+  <div class="envoltura">
+    <h2>Descargas</h2>
+    <p>
+      Todo en <strong>WGS84 / EPSG:4326</strong>, con geometrías válidas y
+      topológicamente limpias. Los archivos también se leen directo desde su URL,
+      sin descargar nada.
+    </p>
+
+    <div class="rejilla">
+
+      <article class="tarjeta destacada">
+        <h3>Municipios <span class="formato">GeoJSON</span></h3>
+        <p>
+          El de uso general: 55.605 vértices, simplificado preservando la topología.
+          Para mapas nacionales y departamentales, web y coropletas.
+        </p>
+        <a class="boton boton-fuerte" href="municipios_bolivia_2024.geojson" download>
+          Descargar <span class="peso">1,6 MB</span>
+        </a>
+      </article>
+
+      <article class="tarjeta destacada">
+        <h3>Municipios <span class="formato">Shapefile</span></h3>
+        <p>
+          El mismo detalle que el GeoJSON, en ZIP con <code>.shp</code>,
+          <code>.dbf</code>, <code>.shx</code>, <code>.prj</code> y <code>.cpg</code>
+          en UTF-8. Para ArcGIS y para quien lo pida así.
+        </p>
+        <a class="boton boton-fuerte" href="municipios_bolivia_2024_shp.zip" download>
+          Descargar <span class="peso">548 KB</span>
+        </a>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Municipios <span class="formato">GeoPackage</span></h3>
+        <p>
+          Municipios y departamentos en un solo archivo, con los nombres de campo
+          completos. El formato abierto que reemplaza al shapefile.
+        </p>
+        <a class="boton boton-suave" href="municipios_bolivia_2024.gpkg" download>
+          Descargar <span class="peso">1,4 MB</span>
+        </a>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Alto detalle <span class="formato">TopoJSON</span></h3>
+        <p>
+          741.926 vértices, sin cuantización. Para zoom fino de bordes, recortes y
+          análisis espacial preciso. Pesa 3,3 MB comprimido en tránsito.
+        </p>
+        <a class="boton boton-suave" href="municipios_bolivia_2024_detalle.topojson" download>
+          Descargar <span class="peso">10 MB</span>
+        </a>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Alto detalle <span class="formato">Shapefile</span></h3>
+        <p>
+          La versión de 741.926 vértices en shapefile, para quien necesita el detalle
+          completo en ArcGIS o en un SIG de escritorio.
+        </p>
+        <a class="boton boton-suave" href="municipios_bolivia_2024_detalle_shp.zip" download>
+          Descargar <span class="peso">8,2 MB</span>
+        </a>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Departamentos <span class="formato">GeoJSON</span></h3>
+        <p>
+          Los 9 departamentos, salidos de disolver los municipios: sus bordes caen
+          exactamente sobre los municipales y se superponen sin desajustes.
+        </p>
+        <a class="boton boton-suave" href="departamentos_bolivia.geojson" download>
+          Descargar <span class="peso">324 KB</span>
+        </a>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Departamentos <span class="formato">Shapefile</span></h3>
+        <p>Los mismos 9 polígonos en shapefile, en ZIP y con codificación UTF-8.</p>
+        <a class="boton boton-suave" href="departamentos_bolivia_shp.zip" download>
+          Descargar <span class="peso">137 KB</span>
+        </a>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Tabla <span class="formato">CSV</span></h3>
+        <p>
+          Las 343 filas sin geometría, para joins rápidos: códigos, nombres, capital
+          y superficie.
+        </p>
+        <a class="boton boton-suave" href="municipios_bolivia_2024.csv" download>
+          Descargar <span class="peso">27 KB</span>
+        </a>
+      </article>
+
+    </div>
+
+    <h3 style="margin-top:44px">Columnas</h3>
+    <div class="tabla-envoltura">
+      <table>
+        <thead>
+          <tr><th>Columna</th><th>En shapefile</th><th>Ejemplo</th><th>Nota</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="mono">idep</td><td class="mono">idep</td><td class="mono">"01"</td><td>Departamento, 2 dígitos con cero a la izquierda</td></tr>
+          <tr><td class="mono">nombre_dep</td><td class="mono">nombre_dep</td><td>Chuquisaca</td><td></td></tr>
+          <tr><td class="mono">iprov</td><td class="mono">iprov</td><td class="mono">"01"</td><td>Provincia</td></tr>
+          <tr><td class="mono">nombre_prov</td><td class="mono">nombre_pro</td><td>Oropeza</td><td>Shapefile trunca a 10 caracteres</td></tr>
+          <tr><td class="mono">imun</td><td class="mono">imun</td><td class="mono">"01"</td><td>Municipio dentro de la provincia</td></tr>
+          <tr><td class="mono">nombre_mun</td><td class="mono">nombre_mun</td><td>Sucre</td><td>Nombre del INE</td></tr>
+          <tr><td class="mono">capital</td><td class="mono">capital</td><td>Sucre</td><td></td></tr>
+          <tr><td class="mono">superficie_km2</td><td class="mono">superficie</td><td class="mono">1671.1</td><td>Shapefile trunca a 10 caracteres</td></tr>
+          <tr><td class="mono">codigo_ine</td><td class="mono">codigo_ine</td><td class="mono">"010101"</td><td>Los tres códigos concatenados. No está en el GeoJSON general</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="aviso">
+      <p>
+        La clave para unir con datos censales es <code>idep + iprov + imun</code>.
+        Ojo con los ceros a la izquierda: si tu herramienta lee los códigos como
+        número, <code>"01"</code> se vuelve <code>1</code> y el join falla en silencio.
+        Léelos como texto.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="seccion" id="uso">
+  <div class="envoltura">
+    <h2>Cómo usarla</h2>
+    <p>
+      No hace falta descargar nada: los archivos se leen directo desde la URL. La base es
+      <code>https://alex-roc.github.io/municipios-bolivia-2024/</code>
+    </p>
+
+    <div class="pestanas" role="tablist">
+      <button role="tab" aria-selected="true"  aria-controls="p-r">R</button>
+      <button role="tab" aria-selected="false" aria-controls="p-py">Python</button>
+      <button role="tab" aria-selected="false" aria-controls="p-qgis">QGIS</button>
+      <button role="tab" aria-selected="false" aria-controls="p-arc">ArcGIS</button>
+    </div>
+
+<div class="panel" id="p-r" role="tabpanel"><pre><code>library(sf)
+
+base &lt;- "https://alex-roc.github.io/municipios-bolivia-2024/"
+
+mun &lt;- st_read(paste0(base, "municipios_bolivia_2024.geojson"))
+# Simple feature collection with 343 features and 8 fields
+
+# Versión de detalle: no declara CRS, hay que asignarlo
+det &lt;- st_read(paste0(base, "municipios_bolivia_2024_detalle.topojson"))
+st_crs(det) &lt;- 4326
+
+# Unir con tus datos por la clave de tres partes
+mun &lt;- merge(mun, mis_datos, by = c("idep", "iprov", "imun"))</code></pre></div>
+
+<div class="panel" id="p-py" role="tabpanel" hidden><pre><code>import geopandas as gpd, pandas as pd
+
+BASE = "https://alex-roc.github.io/municipios-bolivia-2024/"
+
+mun = gpd.read_file(BASE + "municipios_bolivia_2024.geojson")
+mun.crs          # EPSG:4326
+len(mun)         # 343
+
+# GeoPackage: municipios y departamentos en un archivo
+dep = gpd.read_file(BASE + "municipios_bolivia_2024.gpkg", layer="departamentos")
+
+# El CSV SÍ necesita que fuerces texto, o pandas convierte "010101" en 10101
+tabla = pd.read_csv(BASE + "municipios_bolivia_2024.csv",
+                    dtype={"codigo_ine": str, "idep": str,
+                           "iprov": str, "imun": str})</code></pre></div>
+
+<div class="panel" id="p-qgis" role="tabpanel" hidden><pre><code># Sin descargar, por protocolo:
+#   Capa → Añadir capa → Añadir capa vectorial   (Ctrl+Shift+V)
+#   Tipo de origen: Protocolo HTTP(S), cloud, etc.
+#   Pega la URL en URI y pulsa Añadir
+
+# O con el prefijo de GDAL en cualquier diálogo que acepte un origen vectorial:
+/vsicurl/https://alex-roc.github.io/municipios-bolivia-2024/municipios_bolivia_2024.geojson
+
+# Más simple todavía: descarga el .geojson o el .gpkg y arrástralo al lienzo.
+# En el TopoJSON, que no declara CRS, asígnalo con
+# clic derecho → Propiedades → Fuente → EPSG:4326</code></pre></div>
+
+<div class="panel" id="p-arc" role="tabpanel" hidden><pre><code># ArcGIS Pro: descarga el shapefile y arrástralo, o Map → Add Data.
+# Es la vía recomendada aquí — el .prj ya trae WGS84 y el .cpg fuerza UTF-8,
+# así que los acentos de los nombres salen bien.
+
+# ArcGIS Online: Add → Add layer from URL, tipo GeoJSON
+https://alex-roc.github.io/municipios-bolivia-2024/municipios_bolivia_2024.geojson
+
+# El TopoJSON no lo soporta ArcGIS. Usa el shapefile de alto detalle,
+# o conviértelo tú:
+ogr2ogr -f GeoJSON detalle.geojson municipios_bolivia_2024_detalle.topojson</code></pre></div>
+
+    <p style="margin-top:22px">
+      Si trabajas con los censos bolivianos, el paquete
+      <a href="https://lab-tecnosocial.github.io/censosbo/" target="_blank" rel="noopener">censosbo</a>
+      ya trae esta capa en <code>geo_municipios</code>, sin descarga.
+    </p>
+  </div>
+</section>
+
+<section class="seccion" id="origen">
+  <div class="envoltura">
+    <h2>Cómo se construyó</h2>
+    <p>
+      Ninguna fuente pública tiene a la vez la geometría de las 343 unidades y la
+      codificación que usan los microdatos del censo, así que la capa cruza tres fuentes:
+      los <strong>municipios de GeoBolivia</strong> (2015); los <strong>códigos y nombres
+      del INE</strong> (Redatam, CPV-2024), para que coincidan exactamente con los
+      microdatos; y la <strong>geometría, capital y superficie de SDSN Bolivia</strong>
+      (Atlas Municipal de los ODS, junio 2025), la única capa pública que cubre las 343
+      unidades.
+    </p>
+    <p>
+      El emparejamiento entre código y polígono lo arbitran los ~21.000 puntos de
+      comunidades del CPV-2024 del geoportal del INE. Hizo falta porque el código del
+      shapefile de origen estaba desalineado en 7 municipios de Omasuyos y Ñuflo de
+      Chávez. Aquí ya está corregido.
+    </p>
+
+    <h3 style="margin-top:32px">Validación</h3>
+    <ul>
+      <li>El <strong>97,53%</strong> de los puntos del CPV-2024 cae dentro de su municipio
+          en la versión de detalle (97,30% en la simplificada). El resto son puntos
+          prácticamente sobre el borde.</li>
+      <li>La <strong>población municipal</strong> coincide exactamente en los 343
+          municipios con el conteo de los microdatos del CPV-2024: 11.365.333 personas.</li>
+      <li>Geometrías <strong>válidas y topológicamente limpias</strong> en los cuatro
+          archivos de origen: 0 inválidas.</li>
+    </ul>
+
+    <div class="aviso">
+      <p>
+        <strong>Uso referencial.</strong> Estos polígonos sirven para mapear y agregar
+        datos, no para dirimir cuestiones de jurisdicción. Bolivia tiene procesos de
+        delimitación abiertos entre municipios y departamentos, y esta capa no es una
+        fuente autoritativa sobre ellos.
+      </p>
+    </div>
+
+    <h3 style="margin-top:32px">Referencias</h3>
+    <ul>
+      <li>SDSN Bolivia (2025). <em>Límites Municipales Bolivia 2025</em> [shapefile].
+          <a href="https://sdsnbolivia.org/datos-espaciales/" target="_blank" rel="noopener">sdsnbolivia.org</a></li>
+      <li>Instituto Nacional de Estadística de Bolivia (2024). <em>Censo de Población y
+          Vivienda 2024: microdatos</em>.
+          <a href="https://cpv2024.ine.gob.bo/index.php/principal/descargas/" target="_blank" rel="noopener">cpv2024.ine.gob.bo</a></li>
+      <li>Instituto Nacional de Estadística de Bolivia (2024). <em>Geoportal del CPV-2024</em>.
+          <a href="https://geoportal.ine.gob.bo/" target="_blank" rel="noopener">geoportal.ine.gob.bo</a></li>
+      <li>Ministerio de Autonomías (2015). <em>Límites municipales de Bolivia</em>.
+          Publicado en GeoBolivia.</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="envoltura">
+    <div class="pie-lab">
+      <a href="https://labtecnosocial.org" target="_blank" rel="noopener">
+        <img class="logo-claro"  src="assets/logo-lab-claro.svg"  alt="Lab TecnoSocial" width="138" height="30">
+        <img class="logo-oscuro" src="assets/logo-lab-oscuro.svg" alt="Lab TecnoSocial" width="138" height="30">
+      </a>
+      <p>
+        Laboratorio de investigación y tecnología social con sede en Bolivia.
+        Datos, software y formación para el interés público.
+      </p>
+      <p><a href="https://labtecnosocial.org" target="_blank" rel="noopener">labtecnosocial.org</a></p>
+    </div>
+
+    <div>
+      <h3>Datos</h3>
+      <ul>
+        <li><a href="municipios_bolivia_2024.geojson" download>GeoJSON</a></li>
+        <li><a href="municipios_bolivia_2024_shp.zip" download>Shapefile</a></li>
+        <li><a href="municipios_bolivia_2024.gpkg" download>GeoPackage</a></li>
+        <li><a href="municipios_bolivia_2024_detalle.topojson" download>TopoJSON</a></li>
+        <li><a href="municipios_bolivia_2024.csv" download>CSV</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>Proyecto</h3>
+      <ul>
+        <li><a href="https://github.com/alex-roc/municipios-bolivia-2024" target="_blank" rel="noopener">Repositorio en GitHub</a></li>
+        <li><a href="https://github.com/alex-roc/municipios-bolivia-2024/issues" target="_blank" rel="noopener">Reportar un problema</a></li>
+        <li><a href="https://lab-tecnosocial.github.io/censosbo/" target="_blank" rel="noopener">Paquete censosbo (R)</a></li>
+      </ul>
+    </div>
+
+    <div class="cita" style="flex-basis:100%">
+      <p style="margin:0">
+        <strong>Cómo citar.</strong> Lab TecnoSocial (2026).
+        <em>Municipios de Bolivia 2024: geografía municipal del CPV-2024</em>.
+        <a href="https://alex-roc.github.io/municipios-bolivia-2024/">https://alex-roc.github.io/municipios-bolivia-2024/</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/vendor/leaflet.js"></script>
+<script src="assets/mapa.js"></script>
+</body>
+</html>

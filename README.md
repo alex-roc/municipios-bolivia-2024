@@ -2,26 +2,69 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="img/mapa-dark.png">
-  <img src="img/mapa-light.png" alt="Mapa de Bolivia dividido en sus 343 municipios, con los bordes departamentales marcados y los cuatro GAIOC creados desde 2016 resaltados en azul" width="620">
+  <img src="img/mapa-light.png" alt="Mapa de Bolivia dividido en sus 343 municipios, con los bordes departamentales marcados y las cuatro unidades territoriales creadas desde 2016 resaltadas en azul" width="620">
 </picture>
 
 Geografía municipal lista para usar, con los **343 municipios** que reconoce el
 Censo de Población y Vivienda 2024 y los códigos del INE que usan los microdatos
 censales.
 
+**→ [Sitio con mapa interactivo y descargas](https://alex-roc.github.io/municipios-bolivia-2024/)**
+
 > **Uso referencial.** Estos polígonos sirven para mapear y agregar datos, no para
 > dirimir cuestiones de jurisdicción. Bolivia tiene procesos de delimitación
 > abiertos entre municipios y departamentos, y esta capa no es una fuente
 > autoritativa sobre ellos.
+
+## 343 unidades = 335 municipios + 8 autonomías indígenas
+
+Vas a encontrar fuentes serias que dicen que Bolivia tiene **335** municipios y no
+343. Las dos cifras son correctas: cuentan lo mismo de distinta manera.
+
+- **335** son las *autonomías municipales*, contadas por su tipo de gobierno.
+- **8** son *autonomías indígena originario campesinas* (AIOC o GAIOC), que tienen
+  el mismo rango que un municipio pero se rigen por sus propias normas.
+- **343** es el total de *unidades territoriales* del nivel municipal, que es como
+  las cuenta el INE en el CPV-2024 y como están en esta capa.
+
+Las 8 AIOC sí están aquí, cada una con su código INE:
+
+| Unidad | Código | Departamento | Vía de acceso |
+|---|---|---|---|
+| Charagua (Autonomía Guaraní Charagua Iyambae) | `070702` | Santa Cruz | conversión de municipio |
+| Gutiérrez (Autonomía Indígena Kereimba Iyaambae) | `070705` | Santa Cruz | conversión de municipio |
+| Huacaya (Autonomía Guaraní Chaqueño de Huacaya) | `011002` | Chuquisaca | conversión de municipio |
+| Salinas de Garci Mendoza (AIOC de Salinas) | `040801` | Oruro | conversión de municipio |
+| Uru Chipaya (Nación Originaria Uru Chipaya) | `040903` | Oruro | conversión de municipio |
+| TIOC-Raqaypampa | `031304` | Cochabamba | vía territorio |
+| TIOC-Jatun Ayllu Yura | `051204` | Potosí | vía territorio |
+| TIOC-Territorio Indígena Multiétnico | `080901` | Beni | vía territorio |
+
+Las cinco conversiones no cambiaron el mapa: eran municipios que pasaron a
+gobernarse como AIOC conservando territorio y código. Las tres vía territorio sí
+son polígonos nuevos, y son parte de [las cuatro unidades que suelen
+faltar](#las-cuatro-unidades-que-suelen-faltar) en la cartografía que circula.
+
+Hay unos 25 procesos más en trámite, así que el reparto 335/8 se moverá con los
+años. El total de 343 solo cambia si se crean, fusionan o suprimen unidades
+territoriales, no por nuevas conversiones.
 
 ## Archivos
 
 | Archivo | Detalle | Peso | Para qué |
 |---|---|---|---|
 | `municipios_bolivia_2024.geojson` | 55.605 vértices | 1,6 MB | **El de uso general.** Mapas nacionales y departamentales, web, coropletas |
+| `municipios_bolivia_2024_shp.zip` | los mismos, en shapefile | 548 KB | ArcGIS y quien lo pida así |
+| `municipios_bolivia_2024.gpkg` | municipios + departamentos | 1,4 MB | Un solo archivo, sin truncar nombres de campo |
 | `municipios_bolivia_2024_detalle.topojson` | 741.926 vértices | 10,8 MB (3,3 MB gzip) | Zoom fino de bordes, recortes, análisis espacial preciso |
+| `municipios_bolivia_2024_detalle_shp.zip` | los mismos, en shapefile | 8,2 MB | El detalle completo en un SIG de escritorio |
 | `departamentos_bolivia.geojson` | 9 polígonos | 0,3 MB | Contorno departamental para superponer |
+| `departamentos_bolivia_shp.zip` | los mismos, en shapefile | 137 KB | |
 | `municipios_bolivia_2024.csv` | 343 filas | 28 KB | La tabla sin geometría, para joins rápidos |
+
+Los shapefile y el GeoPackage se generan desde los GeoJSON/TopoJSON con
+`./build/generar-descargas.py`, que se ejecuta solo (uv resuelve sus dependencias).
+No los edites a mano: son salidas, no fuentes.
 
 **CRS:** WGS84 / EPSG:4326 en todos. Geometrías válidas y topológicamente limpias
 (0 inválidas en los cuatro archivos).
@@ -52,7 +95,12 @@ exactamente sobre los municipales: se pueden superponer sin desajustes.
 | `nombre_mun` | `"Sucre"` | Nombre del INE |
 | `capital` | `"Sucre"` | Capital municipal |
 | `superficie_km2` | `1671.1` | |
-| `codigo_ine` | `"010101"` | Solo en el CSV y el TopoJSON: los tres códigos concatenados |
+| `codigo_ine` | `"010101"` | Los tres códigos concatenados. Está en todos menos en el GeoJSON general |
+
+En **shapefile** dos columnas se acortan, porque el formato trunca los nombres a
+10 caracteres: `nombre_prov` → `nombre_pro` y `superficie_km2` → `superficie`.
+El resto de nombres no cambia. El `.cpg` fuerza UTF-8, así que los acentos salen
+bien. Si esto molesta, usa el **GeoPackage**, que conserva los nombres completos.
 
 La clave para unir con datos censales es **`idep + iprov + imun`**. Ojo con los
 ceros a la izquierda: si tu herramienta lee los códigos como número, `"01"` se
@@ -157,7 +205,7 @@ codificación que usan los microdatos del censo, así que la capa cruza tres fue
 2. **Códigos `idep`/`iprov`/`imun` y nombres** — INE Bolivia (Redatam, CPV-2024),
    para que coincidan exactamente con los microdatos censales.
 3. **Geometría, capital y superficie** — [SDSN
-   Bolivia](https://sdsnbolivia.org/datos-espaciales/), capa del Atlas Municipal de los ODS (junio 2025). Es la única pública que cubre las 343 unidades: los 339 municipios más los cuatro GAIOC creados entre 2016 y 2023. A su vez se armó
+   Bolivia](https://sdsnbolivia.org/datos-espaciales/), capa del Atlas Municipal de los ODS (junio 2025). Es la única pública que cubre las 343 unidades: los 339 municipios más las cuatro unidades territoriales creadas entre 2016 y 2023. A su vez se armó
    sobre el archivo oficial del Ministerio de Autonomías (2015, publicado en
    GeoBolivia) y las leyes de creación de esas cuatro unidades.
 4. **El emparejamiento** — los ~21.000 puntos de comunidades del
@@ -183,13 +231,16 @@ municipal: el Salar de Uyuni (9.476 km²) y los lagos Poopó (1.285) y Uru Uru (
   municipios** con el conteo de los microdatos del CPV-2024: 11.365.333 personas.
   (Con el `Codigo_INE` sin corregir coincidía en 336 — es lo que delató el error.)
 
-## Los cuatro municipios que suelen faltar
+## Las cuatro unidades que suelen faltar
 
 Casi toda la cartografía municipal boliviana que circula tiene 339 polígonos y le
-faltan estos cuatro. Y no es un hueco visible: su territorio aparece **dentro** del
-municipio madre, así que los datos salen mal atribuidos sin que se note.
+faltan estas cuatro. Y no es un hueco visible: su territorio aparece **dentro** de
+la unidad madre, así que los datos salen mal atribuidos sin que se note.
 
-| Municipio | Código | Departamento | Territorio que suele estar dentro de |
+Tres son AIOC constituidas vía territorio; San Pedro de Macha es un municipio
+ordinario, segregado de Colquechaca.
+
+| Unidad | Código | Departamento | Territorio que suele estar dentro de |
 |---|---|---|---|
 | TIOC-Raqaypampa | 031304 | Cochabamba | Mizque |
 | San Pedro de Macha | 050405 | Potosí | Colquechaca |
