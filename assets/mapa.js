@@ -89,7 +89,7 @@
 
   function pintarFicha(p) {
     if (!p) {
-      elFicha.innerHTML = '<p class="pista">Pasa el cursor por un municipio, o búscalo por nombre.</p>';
+      elFicha.innerHTML = '<p class="pista">Pasa el cursor por una unidad, o búscala por nombre.</p>';
       return;
     }
     var cod = p.idep + p.iprov + p.imun;
